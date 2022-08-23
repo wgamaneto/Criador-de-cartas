@@ -18,6 +18,13 @@ class App extends React.Component {
     };
   }
 
+  onSaveButtonClick = (event) => {
+    const { cardTrunfo } = this.stage;
+    if (cardTrunfo) {
+      this.setState({ hasTrunfo: true });
+    }
+  };
+
   valor = (elemento) => {
     const max = 90;
     if (Number(elemento) >= 0 && Number(elemento) <= max) {
@@ -75,6 +82,7 @@ class App extends React.Component {
           cardRare={ cardRare }
           cardTrunfo={ cardTrunfo }
           isSaveButtonDisabled={ isSaveButtonDisabled }
+          onSaveButtonClick={ this.onSaveButtonClick }
         />
         <Card
           cardName={ cardName }
