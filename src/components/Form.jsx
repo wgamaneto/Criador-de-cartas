@@ -14,19 +14,22 @@ class Form extends React.Component {
       onInputChange,
       onSaveButtonClick } = this.props;
     return (
-      <div>
+      <form>
         <input
+          name="cardName"
           type="text"
           data-testid="name-input"
           onChange={ onInputChange }
           value={ cardName }
         />
         <textarea
+          name="cardDescription"
           data-testid="description-input"
           onChange={ onInputChange }
           value={ cardDescription }
         />
         <input
+          name="cardAttr1"
           type="number"
           data-testid="attr1-input"
           onChange={ onInputChange }
@@ -34,6 +37,7 @@ class Form extends React.Component {
         />
 
         <input
+          name="cardAttr2"
           type="number"
           data-testid="attr2-input"
           onChange={ onInputChange }
@@ -41,6 +45,7 @@ class Form extends React.Component {
         />
 
         <input
+          name="cardAttr3"
           type="number"
           data-testid="attr3-input"
           onChange={ onInputChange }
@@ -48,19 +53,26 @@ class Form extends React.Component {
         />
 
         <input
+          name="cardImage"
           type="text"
           data-testid="image-input"
           onChange={ onInputChange }
           value={ cardImage }
         />
 
-        <select data-testid="rare-input" onChange={ onInputChange } value={ cardRare }>
+        <select
+          name="cardRare"
+          data-testid="rare-input"
+          onChange={ onInputChange }
+          value={ cardRare }
+        >
           <option value="normal">normal</option>
           <option value="raro">raro</option>
           <option value="muito raro">muito raro</option>
         </select>
 
         <input
+          name="cardTrunfo"
           type="checkbox"
           data-testid="trunfo-input"
           checked={ cardTrunfo }
@@ -68,14 +80,14 @@ class Form extends React.Component {
         />
 
         <button
+          onClick={ onSaveButtonClick }
           type="button"
           data-testid="save-button"
-          onClick={ onSaveButtonClick }
           disabled={ isSaveButtonDisabled }
         >
           Salvar
         </button>
-      </div>
+      </form>
     );
   }
 }
