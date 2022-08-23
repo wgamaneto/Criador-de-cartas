@@ -16,7 +16,7 @@ class App extends React.Component {
       cardTrunfo: false,
       isSaveButtonDisabled: true,
     };
-  }
+  }llllll
 
   onSaveButtonClick = (event) => {
     const { cardTrunfo } = this.stage;
