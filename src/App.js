@@ -14,26 +14,30 @@ class App extends React.Component {
       cardImage: '',
       cardRare: 'normal',
       cardTrunfo: false,
-      isSaveButtonDisabled: true,
       hasTrunfo: false,
+      isSaveButtonDisabled: true,
       data: [],
+      // dataOn: false,
     };
   }
 
   onSaveButtonClick = (obj) => {
-    const { cardTrunfo } = this.state;
-    if (cardTrunfo) return this.setState({ hasTrunfo: true });
-    this.setState((prevState) => ({
-      data: [...prevState.data, obj],
+    const { cardTrunfo, hasTrunfo } = this.state;
+    this.setState({
+      hasTrunfo: hasTrunfo || cardTrunfo,
+    });
+    this.setState((prev) => ({
+      data: [...prev.data, obj],
     }), () => {
       this.setState({
-        cardName: '',
-        cardImage: '',
-        cardDescription: '',
         cardAttr1: 0,
         cardAttr2: 0,
         cardAttr3: 0,
         cardRare: 'normal',
+        cardTrunfo: false,
+        cardName: '',
+        cardImage: '',
+        cardDescription: '',
       });
     });
   };
@@ -81,6 +85,8 @@ class App extends React.Component {
       cardRare,
       cardTrunfo,
       isSaveButtonDisabled,
+      // dataOn,
+      data,
     } = this.state;
     return (
       <div>
@@ -109,6 +115,21 @@ class App extends React.Component {
           cardRare={ cardRare }
           cardTrunfo={ cardTrunfo }
         />
+        {
+          data.map((element) => (
+            <Card
+              key={ element.cardName }
+              cardName={ element.cardName }
+              cardDescription={ element.cardDescription }
+              cardAttr1={ element.cardAttr1 }
+              cardAttr2={ element.cardAttr2 }
+              cardAttr3={ element.cardAttr3 }
+              cardImage={ element.cardImage }
+              cardRare={ element.cardRare }
+              cardTrunfo={ element.cardTrunfo }
+            />
+          ))
+        }
       </div>
     );
   }

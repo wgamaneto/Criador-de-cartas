@@ -15,7 +15,7 @@ class Form extends React.Component {
       onInputChange,
       onSaveButtonClick } = this.props;
     return (
-      <form>
+      <div>
         <input
           name="cardName"
           type="text"
@@ -25,8 +25,8 @@ class Form extends React.Component {
         />
         <textarea
           name="cardDescription"
-          data-testid="description-input"
           onChange={ onInputChange }
+          data-testid="description-input"
           value={ cardDescription }
         />
         <input
@@ -87,39 +87,41 @@ class Form extends React.Component {
         <button
           type="button"
           data-testid="save-button"
+          name="isSaveButtonDisabled"
           disabled={ isSaveButtonDisabled }
-          onClick={ () => onSaveButtonClick({
-            cardAttr1,
-            cardAttr2,
-            cardAttr3,
-            cardName,
-            cardDescription,
-            cardImage,
-            cardRare,
-            cardTrunfo,
-          }) }
+          onClick={ () => {
+            onSaveButtonClick({
+              cardName,
+              cardDescription,
+              cardAttr1,
+              cardAttr2,
+              cardAttr3,
+              cardImage,
+              cardRare,
+              cardTrunfo,
+            });
+          } }
         >
           Salvar
         </button>
-      </form>
+      </div>
     );
   }
 }
 
 Form.propTypes = {
-  cardName: PropTypes.string.isRequired,
-  cardDescription: PropTypes.string.isRequired,
   cardAttr1: PropTypes.string.isRequired,
   cardAttr2: PropTypes.string.isRequired,
   cardAttr3: PropTypes.string.isRequired,
+  cardDescription: PropTypes.string.isRequired,
   cardImage: PropTypes.string.isRequired,
+  cardName: PropTypes.string.isRequired,
   cardRare: PropTypes.string.isRequired,
   cardTrunfo: PropTypes.bool.isRequired,
-  hasTrunfo: PropTypes.bool.isRequired,
   isSaveButtonDisabled: PropTypes.bool.isRequired,
   onInputChange: PropTypes.func.isRequired,
+  hasTrunfo: PropTypes.bool.isRequired,
   onSaveButtonClick: PropTypes.func.isRequired,
-
 };
 
 export default Form;
