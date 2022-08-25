@@ -1,6 +1,7 @@
 import React from 'react';
 import Card from './components/Card';
 import Form from './components/Form';
+import Delete from './components/Delete';
 
 class App extends React.Component {
   constructor() {
@@ -75,6 +76,19 @@ class App extends React.Component {
     });
   };
 
+  handleDelete = (elementName, cardTrunfo) => {
+    const { data } = this.state;
+    const newArray = data.filter((element) => element.cardName !== elementName);
+    this.setState({
+      data: newArray,
+    });
+    if (cardTrunfo) {
+      this.setState({
+        hasTrunfo: !cardTrunfo,
+      });
+    }
+  };
+
   render() {
     const { cardName, cardDescription,
       cardAttr1,
@@ -117,17 +131,24 @@ class App extends React.Component {
         />
         {
           data.map((element) => (
-            <Card
-              key={ element.cardName }
-              cardName={ element.cardName }
-              cardDescription={ element.cardDescription }
-              cardAttr1={ element.cardAttr1 }
-              cardAttr2={ element.cardAttr2 }
-              cardAttr3={ element.cardAttr3 }
-              cardImage={ element.cardImage }
-              cardRare={ element.cardRare }
-              cardTrunfo={ element.cardTrunfo }
-            />
+            <div key={ `div${element.cardName}` }>
+              <Card
+                key={ element.cardName }
+                cardName={ element.cardName }
+                cardDescription={ element.cardDescription }
+                cardAttr1={ element.cardAttr1 }
+                cardAttr2={ element.cardAttr2 }
+                cardAttr3={ element.cardAttr3 }
+                cardImage={ element.cardImage }
+                cardRare={ element.cardRare }
+                cardTrunfo={ element.cardTrunfo }
+              />
+              <Delete // Dica obsrvado pelo henrik e pelo thiago lopes
+                handleDelete={ this.handleDelete }
+                elementName={ element.cardName }
+                cardTrunfo={ element.cardTrunfo }
+              />
+            </div>
           ))
         }
       </div>
