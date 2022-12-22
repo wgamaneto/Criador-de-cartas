@@ -89,6 +89,25 @@ class App extends React.Component {
     }
   };
 
+  filter = (name, rare, filterSuper) => {
+    const { data } = this.state;
+    if (filterSuper) {
+      return data.filter((e) => e.cardTrunfo);
+    }
+    // this.setState({ disabledFilters: false });
+    if (name) {
+      return data.filter((e) => e.cardName.includes(name));
+    }
+    if (rare === 'todas') {
+      return data;
+    }
+    if (name && rare) {
+      return data.filter((e) => e.cardRare === rare
+      && e.cardName.includes(name));
+    }
+    return data.filter((e) => e.cardRare === rare);
+  };
+
   render() {
     const { cardName, cardDescription,
       cardAttr1,
@@ -99,8 +118,11 @@ class App extends React.Component {
       cardRare,
       cardTrunfo,
       isSaveButtonDisabled,
+      filterForName,
+      filterForRarity,
+      filterForSuper,
       // dataOn,
-      data,
+      // data,
     } = this.state;
     return (
       <div>
@@ -129,11 +151,39 @@ class App extends React.Component {
           cardRare={ cardRare }
           cardTrunfo={ cardTrunfo }
         />
+        <input
+          type="text"
+          name="filterForName"
+          data-testid="name-filter"
+          onChange={ this.onInputChange }
+          value={ filterForName }
+          disabled={ filterForSuper }
+        />
+
+        <select
+          name="filterForRarity"
+          data-testid="rare-filter"
+          onChange={ this.onInputChange }
+          value={ filterForRarity }
+          disabled={ filterForSuper }
+        >
+          <option value="todas">todas</option>
+          <option value="normal">normal</option>
+          <option value="raro">raro</option>
+          <option value="muito raro">muito raro</option>
+        </select>
+
+        <input
+          type="checkbox"
+          name="filterForSuper"
+          data-testid="trunfo-filter"
+          onChange={ this.onInputChange }
+          value={ filterForSuper }
+        />
         {
-          data.map((element) => (
-            <div key={ `div${element.cardName}` }>
-              <Card
-                key={ element.cardName }
+          this.filter(filterForName, filterForRarity, filterForSuper).map((element) => (
+            <div key={ element.cardName }>
+              <Card // Dica observada pelo Gustavo Aquino e a Hellen ribas (summer)
                 cardName={ element.cardName }
                 cardDescription={ element.cardDescription }
                 cardAttr1={ element.cardAttr1 }
@@ -143,7 +193,7 @@ class App extends React.Component {
                 cardRare={ element.cardRare }
                 cardTrunfo={ element.cardTrunfo }
               />
-              <Delete // Dica obsrvado pelo henrik e pelo thiago lopes
+              <Delete // Dica obsrvado pelo Henrik e pelo Thiago Lopes
                 handleDelete={ this.handleDelete }
                 elementName={ element.cardName }
                 cardTrunfo={ element.cardTrunfo }
